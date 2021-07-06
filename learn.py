@@ -33,7 +33,7 @@ FN = ['OVERVIEW',				#0
 		'IPO_CALENDAR']			#7
 
 URL = 'https://www.alphavantage.co/query'
-TOKEN = 'RELIANCE.BSE'
+TOKEN = 'TSLA'
 
 # This fuction returns pandas dataframe.
 def get_tsdata(tick, type, interval=None, Slice=None):
@@ -88,6 +88,10 @@ def get_fndata(tick,type):
 	quaterly.set_index('fiscalDateEnding',inplace=True)
 	return annual,quaterly
 
+
+def gett():
+	return get_overview(TOKEN)
+
 # annual_report, quaterly_report = get_fndata(TOKEN,1)
 # annual_report, quaterly_report = get_fndata(TOKEN,2)
 # annual_report, quaterly_report = get_fndata(TOKEN,3)
@@ -95,3 +99,11 @@ def get_fndata(tick,type):
 
 
 # mpf.plot(data, type='candle', mav=(5,10,20), volume=True)
+
+
+def test():
+	temp = gett()
+	print(temp['52WeekHigh'])
+
+if __name__ == "__main__":
+	test()
