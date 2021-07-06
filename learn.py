@@ -35,6 +35,10 @@ FN = ['OVERVIEW',				#0
 URL = 'https://www.alphavantage.co/query'
 TOKEN = 'TSLA'
 
+# complete this function.
+def get_token():
+	pass
+
 # This fuction returns pandas dataframe.
 def get_tsdata(tick, type, interval=None, Slice=None):
 	payload = {'apikey':API_KEY, 'function':TS[type], 'symbol':tick}
@@ -86,16 +90,16 @@ def get_fndata(tick,type):
 	quaterly = pd.DataFrame(data[keys[2]])
 	annual.set_index('fiscalDateEnding',inplace=True)
 	quaterly.set_index('fiscalDateEnding',inplace=True)
-	return annual,quaterly
+	return (annual.T,quaterly.T)
 
 
 def gett():
-	return get_overview(TOKEN)
+	return [get_overview(TOKEN),get_fndata(TOKEN,1),get_fndata(TOKEN,2),get_fndata(TOKEN,3),get_fndata(TOKEN,4)]
 
-# annual_report, quaterly_report = get_fndata(TOKEN,1)
-# annual_report, quaterly_report = get_fndata(TOKEN,2)
-# annual_report, quaterly_report = get_fndata(TOKEN,3)
-# annual_report, quaterly_report = get_fndata(TOKEN,4)
+# earnings_a, earnings_q = get_fndata(TOKEN,1)
+# income_a, income_q = get_fndata(TOKEN,2)
+# balance_a, balance_q = get_fndata(TOKEN,3)
+# casflow_a, cashflow_q = get_fndata(TOKEN,4)
 
 
 # mpf.plot(data, type='candle', mav=(5,10,20), volume=True)
