@@ -1,5 +1,5 @@
 # This where I try and test different code scripts related to finaments.
-import time
+
 import numpy as np
 import pandas as pd
 import requests as rq
@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 from pprint import pprint
 from datetime import datetime
-from alpha_vantage.timeseries import TimeSeries
+
 
 API_KEY = '2V99TLARJ7RZ5L2N'		 # This is my alpha vantage key, generate your own key.
 
@@ -33,7 +33,7 @@ FN = ['OVERVIEW',				#0
 		'IPO_CALENDAR']			#7
 
 URL = 'https://www.alphavantage.co/query'
-TOKEN = 'AAPL'
+TOKEN = 'RELIANCE.BSE'
 
 # This fuction returns pandas dataframe.
 def get_tsdata(tick, type, interval=None, Slice=None):
@@ -63,7 +63,10 @@ def get_tsdata_csv(tick, type, interval=None, Slice=None):
 			payload['slice'] = Slice
 
 	r = rq.get(URL,params=payload)
-	return pd.read_csv(r.url, index_col=0)
+	# print(r.url)
+	data = pd.read_csv(r.url, parse_dates=['timestamp'],index_col=0)
+	data = data.reindex(index=data.index[::-1])
+	return data
 
 # This function returns python dictionary, will all overview information about give company.
 def get_overview(tick):
@@ -83,21 +86,12 @@ def get_fndata(tick,type):
 	quaterly = pd.DataFrame(data[keys[2]])
 	annual.set_index('fiscalDateEnding',inplace=True)
 	quaterly.set_index('fiscalDateEnding',inplace=True)
-	return (annual,quaterly)
+	return annual,quaterly
 
 # annual_report, quaterly_report = get_fndata(TOKEN,1)
 # annual_report, quaterly_report = get_fndata(TOKEN,2)
 # annual_report, quaterly_report = get_fndata(TOKEN,3)
 # annual_report, quaterly_report = get_fndata(TOKEN,4)
 
-data = get_tsdata_csv(TOKEN,2)
-daily = data.drop('volume', axis=1)
 
-index = pd.Series(daily.index)
-newindex = list()
-
-for i in index:
-	newindex.append(datetime.strptime(i,'%Y-%m-%d'))
-
-daily.index = newindex
-mpf.plot(daily, type='candle')
+# mpf.plot(data, type='candle', mav=(5,10,20), volume=True)
