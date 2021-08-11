@@ -33,7 +33,7 @@ FN = ['OVERVIEW',				#0
 		'IPO_CALENDAR']			#7
 
 URL = 'https://www.alphavantage.co/query'
-TOKEN = 'TSLA'
+TOKEN = 'IBM'		# default stock token.
 
 # complete this function.
 def get_token():
@@ -92,9 +92,11 @@ def get_fndata(tick,type):
 	quaterly.set_index('fiscalDateEnding',inplace=True)
 	return (annual.T,quaterly.T)
 
+def gets(token):
+	return [get_overview(token),get_tsdata_csv(token,2)]
 
-def gett():
-	return [get_overview(TOKEN),get_fndata(TOKEN,1),get_fndata(TOKEN,2),get_fndata(TOKEN,3),get_fndata(TOKEN,4)]
+def gett(token):
+	return [get_overview(token),get_fndata(token,1),get_fndata(token,2),get_fndata(token,3),get_fndata(token,4)]
 
 # earnings_a, earnings_q = get_fndata(TOKEN,1)
 # income_a, income_q = get_fndata(TOKEN,2)
@@ -110,4 +112,6 @@ def test():
 	print(temp['52WeekHigh'])
 
 if __name__ == "__main__":
-	test()
+	data = get_tsdata_csv('AAPL',2)
+	print(data)
+	mpf.plot(data, type='candle', mav=(5,10,20), volume=True)
