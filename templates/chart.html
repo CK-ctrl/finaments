@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container mt-5">
+	<h1>{{ data.Name }} </h1>
+	<p><strong>Sector:</strong> {{ data.Sector }} &nbsp;&nbsp; <strong>Industry:</strong> {{ data.Industry }}</p><hr>
+	<h4>Company Description</h4>
+	<p>{{ data.Description }}</p>
+	<h4 class="mb-1">Price Action</h4>
+	<div>
+		<img src="{{ url_for('static', filename='plots/plot.png') }}" class="img-fluid float-right" alt="lol">
+	</div>
+	<h4>Overview</h4>
+	<ul>
+		<li> <strong>MarketCapitalization:</strong> {{ data.MarketCapitalization }} </li>
+		<li> <strong>BookValue:</strong> {{ data.BookValue }} </li>
+		<li> <strong>EBITDA:</strong> {{ data.EBITDA }} </li>
+		<li> <strong>ProfitMargin:</strong> {{ data.ProfitMargin }} </li>
+		<li> <strong>OperatingMarginTTM:</strong> {{ data.OperatingMarginTTM }} </li>
+		<li> <strong>ReturnOnAssetsTTM:</strong> {{ data.ReturnOnAssetsTTM }} </li>
+		<li> <strong>ReturnOnEquityTTM:</strong> {{ data.ReturnOnEquityTTM }} </li>
+		<li> <strong>Beta:</strong> {{ data.Beta }} </li>
+		<li> <strong>EPS:</strong> {{ data.EPS }} </li>
+		<li> <strong>52WeekHigh:</strong> {{ data['52WeekHigh'] }} </li>
+		<li> <strong>52WeekLow:</strong> {{ data['52WeekLow'] }} </li>
+		<li> <strong>PERatio:</strong> {{ data.PERatio }} </li>
+		<li> <strong>DividendYield:</strong> {{ data.DividendYield }} </li>
+		<li> <strong>RevenueTTM:</strong> {{ data.RevenueTTM }} </li>
+	</ul>
+</div>
+{% endblock %}

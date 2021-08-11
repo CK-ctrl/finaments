@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <div class="container align-self-center">
+    <form method='POST'>
+      <label>Search Stocks</label>
+      <div class="group">
+        {{ form.csrf_token }}
+        {{ form.token }}
+        {{ form.search }}
+      </div>
+    </form>
+  </div>
+{% endblock %}
