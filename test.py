@@ -37,3 +37,5 @@ print(data.shape)
 data = data[data['exchange'] != 'NYSE ARCA']
 print(data.shape)
 print(data)
+tickers = data.index.tolist()
+print(len(tickers),tickers)

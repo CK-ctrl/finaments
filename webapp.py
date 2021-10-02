@@ -9,7 +9,7 @@ import io
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '627f7d4c934190ad0d323c386ccdc8d6'
 
-class SearchForm(FlaskForm):
+class SearchForm(FlaskForm): 		# This is one of the main funcitons.
 	token = StringField('Token')
 	search = SubmitField('Search')
 
@@ -32,20 +32,13 @@ def index(token):
 						cashflow_a.to_html(classes='data', header=True)]) #titles='cashflow_a.columns.values')])
 
 @app.route('/', methods=['GET','POST'])
-def search():
+def search():														# This is the search function, styling and auto complete feature remaining.
 	form = SearchForm()
 	if (form.validate_on_submit()):
 		return redirect(url_for('index', token=form.token.data))
-	return render_template('search.html', form=form)
+	return render_template('search.html', form=form, tickers=learn.tickers)
 
-@app.route('/data', methods=['GET','POST'])
-def data():
-	form = SearchForm()
-	if (form.validate_on_submit()):
-		return redirect(url_for('chart', token=form.token.data))
-	return render_template('search.html', form=form)
-
-@app.route('/chart/<token>')
+@app.route('/chart/<token>')										# This is a differnt version with price action some trading sessions.
 def chart(token):
 	data = learn.gets(token)
 	overview = data[0]
